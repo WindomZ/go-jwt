@@ -6,6 +6,8 @@ Base on [dgrijalva/jwt-go](https://github.com/dgrijalva/jwt-go)
 
 ## Overview
 
+* Developing...
+
 # Getting Started
 
 ## Installation
@@ -15,8 +17,6 @@ go get -u github.com/WindomZ/go-jwt
 ```
 
 ## TODO
-
-* More practical functions
 
 ## LICENSE
 
