@@ -6,9 +6,7 @@ Base on [dgrijalva/jwt-go](https://github.com/dgrijalva/jwt-go)
 
 ## Overview
 
-* Developing...
-
-# Getting Started
+* Developing..
 
 ## Installation
 
