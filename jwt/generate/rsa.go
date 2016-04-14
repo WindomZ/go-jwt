@@ -8,6 +8,7 @@ import (
 	"os"
 )
 
+// Generate a rsa key pair
 func generateRSAKey(filename string, bits int) error {
 	if len(filename) == 0 {
 		return os.ErrNotExist
@@ -39,6 +40,7 @@ func generateRSAKey(filename string, bits int) error {
 	return nil
 }
 
+// Generate a rsa key pair files, and save to a file with name '@filename', like '@filename' and '@filename.pub'
 func GenerateRSAFile(filename string) error {
 	return generateRSAKey(filename, 1024)
 }
