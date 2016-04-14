@@ -1,7 +1,6 @@
 package jwt
 
 import (
-	"fmt"
 	. "github.com/WindomZ/go-jwt/jwt/utils"
 	"path"
 )
@@ -11,8 +10,12 @@ func init() {
 	if !ok {
 		panic(ErrInit)
 	}
-	println(ok)
-	println(dir)
 	s, _ := findJwtKeyFiles(path.Join(dir, "default"))
-	println(fmt.Sprintf("%#v", s))
+	hs, err := filesToHandlers(s)
+	if err != nil {
+		panic(err)
+	}
+	for _, h := range hs {
+		println(h.Kid)
+	}
 }
