@@ -60,21 +60,21 @@ func filesToHandlers(files []*jwtKeyFile) ([]*jwtHandler, error) {
 		kf := func(t *jwt.Token) (interface{}, error) { return f.Data, nil }
 		switch f.Tag {
 		case TagHmac:
-			hm[f.Tag+f.Kid] = &jwtHandler{
+			hm[f.Kid] = &jwtHandler{
 				Kid:    f.Kid,
 				Method: jwt.SigningMethodHS512,
 				enKey:  kf,
 				deKey:  kf,
 			}
 		case TagRSA:
-			if h, ok := hm[f.Tag+f.Kid]; ok {
+			if h, ok := hm[f.Kid]; ok {
 				if f.Ext {
 					h.deKey = kf
 				} else {
 					h.enKey = kf
 				}
 			} else {
-				hm[f.Tag+f.Kid] = &jwtHandler{
+				hm[f.Kid] = &jwtHandler{
 					Kid:    f.Kid,
 					Method: jwt.SigningMethodRS512,
 					enKey:  kf,
