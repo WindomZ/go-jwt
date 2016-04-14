@@ -4,7 +4,7 @@ import "github.com/WindomZ/go-jwt/jwt/generate"
 
 func main() {
 	// Generate a hmac key file
-	if err := jwt.GenerateHmacFile("./hmac_user1", "123456", "key"); err != nil {
+	if err := jwt.GenerateHmacFile("./hmac_user1"); err != nil {
 		panic(err)
 	}
 
