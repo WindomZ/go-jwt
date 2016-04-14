@@ -1,8 +1,6 @@
 package jwt
 
-import (
-	jwt "github.com/dgrijalva/jwt-go"
-)
+import jwt "github.com/dgrijalva/jwt-go"
 
 const (
 	KID = "kid"
@@ -18,19 +16,28 @@ const (
 type jwtHandler struct {
 	Kid    string
 	Method jwt.SigningMethod
-	enKey  jwt.Keyfunc
-	deKey  jwt.Keyfunc
+	enKey  interface{}
+	deKey  interface{}
 }
 
-var handlers map[string]*jwtHandler
+var handlers = make(map[string]*jwtHandler, 5)
 
-func setJwtHandler(m *jwtHandler) error {
-	if m == nil {
+func setJwtHandler(h *jwtHandler) error {
+	if h == nil {
 		return ErrJwtHandler
-	} else if len(m.Kid) == 0 {
+	} else if len(h.Kid) == 0 {
 		return ErrExistKID
 	}
-	handlers[m.Kid] = m
+	handlers[h.Kid] = h
+	return nil
+}
+
+func setJwtHandlers(hs []*jwtHandler) error {
+	for _, h := range hs {
+		if err := setJwtHandler(h); err != nil {
+			return err
+		}
+	}
 	return nil
 }
 
@@ -48,6 +55,6 @@ func getJwtHandlerKey(token *jwt.Token) (interface{}, error) {
 	} else if m, err := getJwtHandler(kid); err != nil {
 		return nil, err
 	} else {
-		return m.deKey(token)
+		return m.deKey, nil
 	}
 }
