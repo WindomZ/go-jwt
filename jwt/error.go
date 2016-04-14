@@ -3,8 +3,19 @@ package jwt
 import "errors"
 
 var (
-	ErrToken          error = errors.New(MSG_ERR_JWT_INVALID_TOKEN)
-	ErrTokenExpired         = errors.New(MSG_ERR_JWT_EXPIRED_TOKEN)
-	ErrTokenNotActive       = errors.New(MSG_ERR_JWT_NOT_VALID_YET_TOKEN)
-	ErrRequest              = errors.New(MSG_ERR_JWT_REQUEST)
+	ErrInit error = errors.New("Fail to initialize jwt")
+	ErrNil        = errors.New("This is nil")
+)
+
+var (
+	ErrToken          error = errors.New("That's not even a token")
+	ErrTokenExpired         = errors.New("Token is expired")
+	ErrTokenNotActive       = errors.New("Token is not active yet")
+	ErrRequest              = errors.New("Request error")
+)
+
+var (
+	ErrJwtHandler  error = errors.New("That's not even a jwt handler")
+	ErrJwtHandlers       = errors.New("These are not jwt handler")
+	ErrExistKID          = errors.New("There is no this KID")
 )
