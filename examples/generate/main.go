@@ -1,6 +1,6 @@
 package main
 
-import "github.com/WindomZ/go-jwt/jwt/generate"
+import "github.com/WindomZ/go-jwt/generate"
 
 func main() {
 	// Generate a hmac key file
