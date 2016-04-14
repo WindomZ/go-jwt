@@ -8,6 +8,11 @@ import (
 	"os"
 )
 
+const (
+	type_private_key string = "RSA PRIVATE KEY"
+	type_public_key  string = "PUBLIC KEY"
+)
+
 // Generate a rsa key pair
 func generateRSAKey(filename string, bits int) error {
 	if len(filename) == 0 {
@@ -19,7 +24,7 @@ func generateRSAKey(filename string, bits int) error {
 	} else if err := pem.Encode(
 		file,
 		&pem.Block{
-			Type:  "RSA PRIVATE KEY",
+			Type:  type_private_key,
 			Bytes: x509.MarshalPKCS1PrivateKey(privateKey),
 		},
 	); err != nil {
@@ -31,7 +36,7 @@ func generateRSAKey(filename string, bits int) error {
 	} else if err = pem.Encode(
 		file,
 		&pem.Block{
-			Type:  "PUBLIC KEY",
+			Type:  type_public_key,
 			Bytes: pkix,
 		},
 	); err != nil {
