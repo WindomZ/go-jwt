@@ -19,11 +19,7 @@ func Signed(kid string, arg interface{}, minutes int) (string, error) {
 	token.Header[KID] = handler.Kid
 	token.Claims[ARG] = arg
 	token.Claims[EXP] = time.Now().Add(time.Minute * time.Duration(minutes)).Unix()
-	if key, err := handler.enKey(token); err != nil {
-		return "", err
-	} else {
-		return token.SignedString(key)
-	}
+	return token.SignedString(handler.enKey)
 }
 
 func parseToken(token *jwt.Token, err error) (interface{}, error) {

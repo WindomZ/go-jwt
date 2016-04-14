@@ -41,11 +41,11 @@ func parseJwtKeyFile(file string) (*jwtKeyFile, bool) {
 		return nil, false
 	} else if strings.HasPrefix(f, TagHmac) {
 		if len(f) > len(TagHmac)+1 {
-			return &jwtKeyFile{Tag: TagHmac, Ext: (len(ext) != 0), Kid: f, Data: data}, true
+			return &jwtKeyFile{Tag: TagHmac, Ext: false, Kid: f, Data: data}, true
 		}
 	} else if strings.HasPrefix(f, TagRSA) {
 		if len(f) > len(TagRSA)+1 {
-			return &jwtKeyFile{Tag: TagRSA, Ext: (len(ext) != 0), Kid: f, Data: data}, true
+			return &jwtKeyFile{Tag: TagRSA, Ext: strings.Contains(ext, "pub"), Kid: f, Data: data}, true
 		}
 	}
 	return nil, false
@@ -57,30 +57,28 @@ func filesToHandlers(files []*jwtKeyFile) ([]*jwtHandler, error) {
 	}
 	hm := make(map[string]*jwtHandler, len(files))
 	for _, f := range files {
-		kf := func(t *jwt.Token) (interface{}, error) { return f.Data, nil }
+		var method jwt.SigningMethod
 		switch f.Tag {
 		case TagHmac:
-			hm[f.Kid] = &jwtHandler{
-				Kid:    f.Kid,
-				Method: jwt.SigningMethodHS512,
-				enKey:  kf,
-				deKey:  kf,
-			}
+			method = jwt.SigningMethodHS512
 		case TagRSA:
+			method = jwt.SigningMethodRS512
 			if h, ok := hm[f.Kid]; ok {
 				if f.Ext {
-					h.deKey = kf
+					h.deKey = f.Data
 				} else {
-					h.enKey = kf
+					h.enKey = f.Data
 				}
-			} else {
-				hm[f.Kid] = &jwtHandler{
-					Kid:    f.Kid,
-					Method: jwt.SigningMethodRS512,
-					enKey:  kf,
-					deKey:  kf,
-				}
+				continue
 			}
+		default:
+			continue
+		}
+		hm[f.Kid] = &jwtHandler{
+			Kid:    f.Kid,
+			Method: method,
+			enKey:  f.Data,
+			deKey:  f.Data,
 		}
 	}
 	if len(hm) == 0 {
