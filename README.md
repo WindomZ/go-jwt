@@ -8,7 +8,7 @@ Base on [dgrijalva/jwt-go](https://github.com/dgrijalva/jwt-go)
 
 * Default support Hmac512 and RSA
 * Tool to generate keys, include Hmac512, RSA
-* Easy way to manage more keys
+* Dynamic loading the keys, and easy way to manage
 * More...
 
 ## Installation
@@ -21,7 +21,6 @@ go get -u github.com/WindomZ/go-jwt
 
 * Usage and examples
 * More test demos
-* Support config
 
 ## LICENSE
 
