@@ -1,8 +1,6 @@
 package jwt
 
-import (
-	"testing"
-)
+import "testing"
 
 func runJWT(t *testing.T, kid string, m interface{}) {
 	tokenString, err := Signed(kid, m, 72)
@@ -11,7 +9,7 @@ func runJWT(t *testing.T, kid string, m interface{}) {
 		return
 	}
 	t.Logf("token: %v\n", tokenString)
-	arg, err := ParseFromString(tokenString)
+	arg, err := Parsing(tokenString)
 	if err != nil {
 		t.Error(err)
 		return
@@ -20,7 +18,7 @@ func runJWT(t *testing.T, kid string, m interface{}) {
 	}
 }
 
-func TestUser1(t *testing.T) {
+func TestDefaultHmac(t *testing.T) {
 	var m = make(map[string]interface{})
 	m["uid"] = 19
 	m["username"] = "the name of user"
@@ -28,17 +26,10 @@ func TestUser1(t *testing.T) {
 	runJWT(t, DEFAULT_KID_HMAC, m)
 }
 
-func TestAdmin1(t *testing.T) {
+func TestDefaultRSA(t *testing.T) {
 	var m = make(map[string]interface{})
 	m["uid"] = 21
 	m["username"] = "the name of admin"
 	m["中文"] = "这是个测试123abc"
 	runJWT(t, DEFAULT_KID_RSA, m)
 }
-
-//func TestGenerateUser1(t *testing.T) {
-//	err := jwt.SaveHmac256ToFile("./hmac_test1", "secretofgeneplayer", "messageofgeneplayer")
-//	if err != nil {
-//		panic(err)
-//	}
-//}

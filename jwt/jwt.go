@@ -43,7 +43,10 @@ func parseToken(token *jwt.Token, err error) (interface{}, error) {
 	return nil, err
 }
 
-// TODO: rename
-func ParseFromString(tokenString string) (interface{}, error) {
+func Parsing(tokenString string) (interface{}, error) {
 	return parseToken(jwt.Parse(tokenString, getJwtHandlerKey))
+}
+
+func ParseFromString(tokenString string) (interface{}, error) {
+	return Parsing(tokenString)
 }
