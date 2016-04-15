@@ -10,15 +10,11 @@ const (
 	DEFAULT_KID_RSA         = "rsa_default"
 )
 
+// Initialize the default configuration
 func init() {
-	dir, ok := GetCurrentDirectory()
-	if !ok {
+	if dir, ok := GetCurrentDirectory(); !ok {
 		panic(ErrInit)
-	}
-	fs, _ := findJwtKeyFiles(path.Join(dir, "default"))
-	if hs, err := filesToHandlers(fs); err != nil {
+	} else if err := NewConfig(path.Join(dir, "default")).Effect(); err != nil {
 		panic(err)
-	} else {
-		setJwtHandlers(hs)
 	}
 }
