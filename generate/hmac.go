@@ -3,8 +3,12 @@ package jwt
 import (
 	"crypto/hmac"
 	"crypto/sha512"
+	"fmt"
+	. "github.com/WindomZ/go-jwt/jwt/macro"
 	"github.com/WindomZ/go-random/random"
 	"io/ioutil"
+	"path"
+	"strings"
 )
 
 // Generate a hmac key
@@ -17,14 +21,22 @@ func generateHmac512(message, secret []byte) ([]byte, error) {
 }
 
 // Generate a hmac key, and save to a file with name '@filename'
-func GenerateHmacFile(filename string) error {
+func GenerateHmacFile(filepath string) error {
 	if data, err := generateHmac512(
 		random.RandomBytes(sha512.Size),
 		random.RandomBytes(sha512.BlockSize),
 	); err != nil {
 		return err
-	} else if err := ioutil.WriteFile(filename, data, 0644); err != nil {
+	} else if err := ioutil.WriteFile(filepath, data, 0644); err != nil {
 		return err
 	}
 	return nil
+}
+
+func CorrectHmacFileName(filepath string) string {
+	name := path.Base(filepath)
+	if strings.HasPrefix(name, StrHmac) {
+		return filepath
+	}
+	return path.Join(path.Dir(filepath), fmt.Sprintf("%v_%v", StrHmac, name))
 }

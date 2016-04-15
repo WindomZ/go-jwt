@@ -1,6 +1,9 @@
 package jwt
 
-import jwt "github.com/dgrijalva/jwt-go"
+import (
+	. "github.com/WindomZ/go-jwt/jwt/macro"
+	jwt "github.com/dgrijalva/jwt-go"
+)
 
 const (
 	KID = "kid"
@@ -9,8 +12,8 @@ const (
 )
 
 const (
-	TagHmac string = "hmac"
-	TagRSA         = "rsa"
+	TagHmac string = StrHmac
+	TagRSA         = StrRSA
 )
 
 type jwtHandler struct {
