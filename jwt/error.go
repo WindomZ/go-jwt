@@ -19,3 +19,5 @@ var (
 	ErrJwtHandlers       = errors.New("These are not jwt handler")
 	ErrExistKID          = errors.New("There is no this KID")
 )
+
+const MSG_ERR_JWT_CANNOT_HANDLE_TOKEN string = "Couldn't handle this token:"

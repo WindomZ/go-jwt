@@ -2,7 +2,6 @@ package jwt
 
 import (
 	"errors"
-	"fmt"
 	jwt "github.com/dgrijalva/jwt-go"
 	"time"
 )
@@ -35,10 +34,10 @@ func parseToken(token *jwt.Token, err error) (interface{}, error) {
 		} else if ve.Errors&jwt.ValidationErrorNotValidYet != 0 {
 			err = ErrTokenNotActive
 		} else {
-			err = errors.New(fmt.Sprintln(MSG_ERR_JWT_CANNOT_HANDLE_TOKEN, err))
+			err = errors.New(MSG_ERR_JWT_CANNOT_HANDLE_TOKEN + err.Error())
 		}
 	} else {
-		err = errors.New(fmt.Sprintln(MSG_ERR_JWT_CANNOT_HANDLE_TOKEN, err))
+		err = errors.New(MSG_ERR_JWT_CANNOT_HANDLE_TOKEN + err.Error())
 	}
 	return nil, err
 }
