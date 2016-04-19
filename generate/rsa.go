@@ -6,7 +6,7 @@ import (
 	"crypto/x509"
 	"encoding/pem"
 	"fmt"
-	. "github.com/WindomZ/go-jwt/jwt/macro"
+	. "github.com/WindomZ/go-jwt/macro"
 	"os"
 	"path"
 	"strings"

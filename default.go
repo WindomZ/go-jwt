@@ -1,7 +1,7 @@
 package jwt
 
 import (
-	. "github.com/WindomZ/go-jwt/jwt/utils"
+	. "github.com/WindomZ/go-jwt/utils"
 	"path"
 )
 

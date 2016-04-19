@@ -4,7 +4,7 @@ import (
 	"crypto/hmac"
 	"crypto/sha512"
 	"fmt"
-	. "github.com/WindomZ/go-jwt/jwt/macro"
+	. "github.com/WindomZ/go-jwt/macro"
 	"github.com/WindomZ/go-random/random"
 	"io/ioutil"
 	"path"

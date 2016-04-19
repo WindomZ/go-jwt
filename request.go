@@ -1,7 +1,7 @@
 package jwt
 
 import (
-	. "github.com/WindomZ/go-jwt/jwt/macro"
+	. "github.com/WindomZ/go-jwt/macro"
 	jwt "github.com/dgrijalva/jwt-go"
 	"net/http"
 	"strings"
