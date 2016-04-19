@@ -6,7 +6,7 @@ import (
 	"time"
 )
 
-func Signed(kid string, arg interface{}, minutes int) (string, error) {
+func Sign(kid string, arg interface{}, minutes int) (string, error) {
 	if minutes < 0 {
 		minutes = 0
 	}
@@ -42,10 +42,6 @@ func parseToken(token *jwt.Token, err error) (interface{}, error) {
 	return nil, err
 }
 
-func Parsing(tokenString string) (interface{}, error) {
-	return parseToken(jwt.Parse(tokenString, getJwtHandlerKey))
-}
-
-func ParseFromString(tokenString string) (interface{}, error) {
-	return Parsing(tokenString)
+func Parse(token string) (interface{}, error) {
+	return parseToken(jwt.Parse(token, getJwtHandlerKey))
 }

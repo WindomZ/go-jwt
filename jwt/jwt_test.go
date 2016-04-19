@@ -3,13 +3,13 @@ package jwt
 import "testing"
 
 func runJWT(t *testing.T, kid string, m interface{}) {
-	tokenString, err := Signed(kid, m, 72)
+	token, err := Sign(kid, m, 72)
 	if err != nil {
 		t.Error(err)
 		return
 	}
-	t.Logf("token: %v\n", tokenString)
-	arg, err := Parsing(tokenString)
+	t.Logf("token: %v\n", token)
+	arg, err := Parse(token)
 	if err != nil {
 		t.Error(err)
 		return

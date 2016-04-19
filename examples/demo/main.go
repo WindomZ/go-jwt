@@ -33,11 +33,11 @@ func main() {
 }
 
 func sign(keyName string, m interface{}) (token string, err error) {
-	return jwt.Signed(keyName, m, 72)
+	return jwt.Sign(keyName, m, 72)
 }
 
 func verify(token string) (err error) {
-	_, err = jwt.Parsing(token)
+	_, err = jwt.Parse(token)
 	return
 }
 

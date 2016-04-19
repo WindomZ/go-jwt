@@ -7,16 +7,16 @@ import (
 	"strings"
 )
 
-func SignedToRequest(req *http.Request, kid string, arg interface{}, minutes int) (*http.Request, error) {
-	tokenString, err := Signed(kid, arg, minutes)
+func SignRequest(req *http.Request, kid string, arg interface{}, minutes int) error {
+	token, err := Sign(kid, arg, minutes)
 	if err != nil {
-		return req, err
+		return err
 	}
-	req.Header.Set(HEADER_KEY(), HEADER_VALUE(tokenString))
-	return req, nil
+	req.Header.Set(HEADER_KEY(), HEADER_VALUE(token))
+	return nil
 }
 
-func ParseFromRequest(req *http.Request) (interface{}, error) {
+func ParseRequest(req *http.Request) (interface{}, error) {
 	if req == nil {
 		return nil, ErrRequest
 	} else if ah := req.Header.Get("Authorization"); ah != "" {
