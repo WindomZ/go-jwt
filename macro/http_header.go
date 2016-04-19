@@ -17,6 +17,11 @@ func HEADER_KEY() string {
 	return headerKey
 }
 
+// the prefix value in http.Request header entries
+func HEADER_VALUE_PREFIX() string {
+	return headerValuePrefix
+}
+
 // the value in http.Request header entries
 func HEADER_VALUE(v string) string {
 	return fmt.Sprintf("%v %v", headerValuePrefix, v)
