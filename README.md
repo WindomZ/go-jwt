@@ -20,6 +20,7 @@ go get -u github.com/WindomZ/go-jwt
 ## TODO
 
 * Usage
+* Struct functions for header
 
 ## LICENSE
 
