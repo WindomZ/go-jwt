@@ -7,6 +7,12 @@ import (
 	"strings"
 )
 
+// set key and prefix value in http.Request header entries
+func SetHTTPHeaderKey(key string) {
+	SetHTTPHeaderKeyAndValuePrefix(key, "")
+}
+
+// Generate the signing string, and set into http request
 func SignRequest(req *http.Request, kid string, arg interface{}, minutes int) error {
 	token, err := Sign(kid, arg, minutes)
 	if err != nil {
@@ -16,6 +22,7 @@ func SignRequest(req *http.Request, kid string, arg interface{}, minutes int) er
 	return nil
 }
 
+// Parse http request, validate, and return a token.
 func ParseRequest(req *http.Request) (interface{}, error) {
 	if req == nil {
 		return nil, ErrRequest
