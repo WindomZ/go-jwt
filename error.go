@@ -25,7 +25,7 @@ var (
 
 var (
 	ErrHandleTokenFunc = func(err error) error {
-		return errors.New(fmt.Sprintf("jwt: Couldn't handle this token(%v)", err.Error()))
+		return errors.New(fmt.Sprintf("jwt: Couldn't handle this token with error(%v)", err.Error()))
 	}
 )
 
