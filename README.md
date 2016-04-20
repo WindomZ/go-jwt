@@ -8,7 +8,8 @@ Base on [dgrijalva/jwt-go](https://github.com/dgrijalva/jwt-go)
 
 * Default support Hmac512 and RSA
 * Tool to generate keys, include Hmac512, RSA
-* Dynamic loading the keys, and easy way to manage
+* Dynamic loading the keys, easy way to manage
+* Simplified common functions, deploy into any project quickly
 
 ## Installation
 
