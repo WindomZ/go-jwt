@@ -22,6 +22,16 @@ func SignRequest(req *http.Request, kid string, arg interface{}, minutes int) er
 	return nil
 }
 
+// Generate the signing string, and set into http response writer
+func SignResponse(rw http.ResponseWriter, kid string, arg interface{}, minutes int) error {
+	token, err := Sign(kid, arg, minutes)
+	if err != nil {
+		return err
+	}
+	rw.Header().Set(HEADER_KEY(), HEADER_VALUE(token))
+	return nil
+}
+
 // Parse http request, validate, and return a token.
 func ParseRequest(req *http.Request) (interface{}, error) {
 	if req == nil {
