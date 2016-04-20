@@ -7,7 +7,8 @@ var (
 	headerValuePrefix        = "Bearer"
 )
 
-func SetHeadKeyAndValuePrefix(key, pre string) {
+// set key and prefix value in http.Request header entries
+func SetHTTPHeaderKeyAndValuePrefix(key, pre string) {
 	headerKey = key
 	headerValuePrefix = pre
 }
@@ -24,5 +25,8 @@ func HEADER_VALUE_PREFIX() string {
 
 // the value in http.Request header entries
 func HEADER_VALUE(v string) string {
-	return fmt.Sprintf("%v %v", headerValuePrefix, v)
+	if len(headerValuePrefix) != 0 {
+		return fmt.Sprintf("%v %v", headerValuePrefix, v)
+	}
+	return v
 }
