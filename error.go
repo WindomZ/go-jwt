@@ -1,23 +1,34 @@
 package jwt
 
-import "errors"
-
-var (
-	ErrInit error = errors.New("Fail to initialize jwt")
-	ErrNil        = errors.New("This is nil")
+import (
+	"errors"
+	"fmt"
 )
 
 var (
-	ErrToken          error = errors.New("That's not even a token")
-	ErrTokenExpired         = errors.New("Token is expired")
-	ErrTokenNotActive       = errors.New("Token is not active yet")
-	ErrRequest              = errors.New("Request error")
+	ErrInit error = errors.New("jwt: Fail to initialize jwt")
+	ErrNil        = errors.New("jwt: This is nil")
 )
 
 var (
-	ErrJwtHandler  error = errors.New("That's not even a jwt handler")
-	ErrJwtHandlers       = errors.New("These are not jwt handler")
-	ErrExistKID          = errors.New("There is no this KID")
+	ErrToken          error = errors.New("jwt: That's not even a token")
+	ErrTokenExpired         = errors.New("jwt: Token is expired")
+	ErrTokenNotActive       = errors.New("jwt: Token is not active yet")
+	ErrRequest              = errors.New("jwt: Request error")
 )
 
-const MSG_ERR_JWT_CANNOT_HANDLE_TOKEN string = "Couldn't handle this token:"
+var (
+	ErrJwtHandler  error = errors.New("jwt: That's not even a jwt handler")
+	ErrJwtHandlers       = errors.New("jwt: These are not jwt handler")
+	ErrExistKID          = errors.New("jwt: There is no this KID")
+)
+
+var (
+	ErrHandleTokenFunc = func(err error) error {
+		return errors.New(fmt.Sprintf("jwt: Couldn't handle this token(%v)", err.Error()))
+	}
+)
+
+func IsTimeOutErr(err error) bool {
+	return err == ErrTokenExpired
+}
