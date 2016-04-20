@@ -5,6 +5,7 @@ import (
 	"time"
 )
 
+// Generate the signing string.
 func Sign(kid string, arg interface{}, minutes int) (string, error) {
 	if minutes < 0 {
 		minutes = 0
@@ -41,6 +42,7 @@ func parseToken(token *jwt.Token, err error) (interface{}, error) {
 	return nil, err
 }
 
+// Parse, validate, and return a token.
 func Parse(token string) (interface{}, error) {
 	return parseToken(jwt.Parse(token, getJwtHandlerKey))
 }
