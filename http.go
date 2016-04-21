@@ -40,6 +40,8 @@ func parseHTTPHeader(header http.Header) (interface{}, error) {
 	if ah := header.Get(HEADER_KEY()); len(ah) != 0 {
 		if len(HEADER_VALUE_PREFIX()) == 0 {
 			return parseToken(jwt.Parse(ah, getJwtHandlerKey))
+		} else if len(ah) <= len(HEADER_VALUE_PREFIX()) {
+			return nil, jwt.ErrInvalidKey
 		} else if strings.HasPrefix(ah[:len(HEADER_VALUE_PREFIX())], HEADER_VALUE_PREFIX()) {
 			return parseToken(jwt.Parse(ah[(len(HEADER_VALUE_PREFIX())+1):],
 				getJwtHandlerKey))
