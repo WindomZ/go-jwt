@@ -15,6 +15,7 @@ var (
 	ErrTokenExpired         = errors.New("jwt: Token is expired")
 	ErrTokenNotActive       = errors.New("jwt: Token is not active yet")
 	ErrRequest              = errors.New("jwt: Request error")
+	ErrResponse             = errors.New("jwt: Response error")
 )
 
 var (
