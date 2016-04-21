@@ -4,7 +4,7 @@ import (
 	"crypto/hmac"
 	"crypto/sha512"
 	"fmt"
-	. "github.com/WindomZ/go-jwt/macro"
+	. "github.com/WindomZ/go-jwt/default"
 	"github.com/WindomZ/go-random/random"
 	"io/ioutil"
 	"path"
@@ -35,8 +35,8 @@ func GenerateHmacFile(filepath string) error {
 
 func CorrectHmacFileName(filepath string) string {
 	name := path.Base(filepath)
-	if strings.HasPrefix(name, StrHmac) {
+	if strings.HasPrefix(name, StringHmac) {
 		return filepath
 	}
-	return path.Join(path.Dir(filepath), fmt.Sprintf("%v_%v", StrHmac, name))
+	return path.Join(path.Dir(filepath), fmt.Sprintf("%v_%v", StringHmac, name))
 }

@@ -1,7 +1,7 @@
 package jwt
 
 import (
-	. "github.com/WindomZ/go-jwt/macro"
+	. "github.com/WindomZ/go-jwt/default"
 	jwt "github.com/dgrijalva/jwt-go"
 )
 
@@ -12,8 +12,8 @@ const (
 )
 
 const (
-	TagHmac string = StrHmac
-	TagRSA         = StrRSA
+	TagHmac string = StringHmac
+	TagRSA         = StringRSA
 )
 
 type jwtHandler struct {

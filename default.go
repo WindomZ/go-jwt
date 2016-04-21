@@ -14,7 +14,7 @@ const (
 func init() {
 	if dir, ok := GetCurrentDirectory(); !ok {
 		panic(ErrInit)
-	} else if err := NewConfig(path.Join(dir, "default")).Effect(); err != nil {
+	} else if err := NewConfig(path.Join(dir, "assets")).Effect(); err != nil {
 		panic(err)
 	}
 }

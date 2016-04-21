@@ -6,7 +6,7 @@ import (
 	"crypto/x509"
 	"encoding/pem"
 	"fmt"
-	. "github.com/WindomZ/go-jwt/macro"
+	. "github.com/WindomZ/go-jwt/default"
 	"os"
 	"path"
 	"strings"
@@ -56,8 +56,8 @@ func GenerateRSAFile(filepath string) error {
 
 func CorrectRSAFileName(filepath string) string {
 	name := path.Base(filepath)
-	if strings.HasPrefix(name, StrRSA) {
+	if strings.HasPrefix(name, StringRSA) {
 		return filepath
 	}
-	return path.Join(path.Dir(filepath), fmt.Sprintf("%v_%v", StrRSA, name))
+	return path.Join(path.Dir(filepath), fmt.Sprintf("%v_%v", StringRSA, name))
 }

@@ -1,10 +1,13 @@
 package jwt
 
-import "fmt"
+import (
+	"fmt"
+	. "github.com/WindomZ/go-jwt/default"
+)
 
 var (
-	headerKey         string = "Authorization"
-	headerValuePrefix        = "Bearer"
+	headerKey         string = DefaultHTTPHeaderKey
+	headerValuePrefix        = DefaultHTTPHeaderValuePrefix
 )
 
 // set key and prefix value in http.Request header entries
