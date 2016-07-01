@@ -14,10 +14,11 @@ func Sign(kid string, arg interface{}, minutes int) (string, error) {
 	if err != nil {
 		return "", err
 	}
-	token := jwt.New(handler.Method)
+	token := jwt.NewWithClaims(handler.Method, jwt.MapClaims{
+		ARG: arg,
+		EXP: time.Now().Add(time.Minute * time.Duration(minutes)).Unix(),
+	})
 	token.Header[KID] = handler.Kid
-	token.Claims[ARG] = arg
-	token.Claims[EXP] = time.Now().Add(time.Minute * time.Duration(minutes)).Unix()
 	return token.SignedString(handler.enKey)
 }
 
@@ -25,7 +26,10 @@ func parseToken(token *jwt.Token, err error) (interface{}, error) {
 	if token == nil {
 		return nil, ErrToken
 	} else if token.Valid {
-		return token.Claims[ARG], nil
+		if claims, ok := token.Claims.(jwt.MapClaims); ok {
+			return claims[ARG], nil
+		}
+		return nil, nil
 	} else if ve, ok := err.(*jwt.ValidationError); ok {
 		if ve.Errors&jwt.ValidationErrorMalformed != 0 {
 			err = ErrToken

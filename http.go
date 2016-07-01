@@ -3,6 +3,7 @@ package jwt
 import (
 	. "github.com/WindomZ/go-jwt/macro"
 	jwt "github.com/dgrijalva/jwt-go"
+	req "github.com/dgrijalva/jwt-go/request"
 	"net/http"
 	"strings"
 )
@@ -47,7 +48,7 @@ func parseHTTPHeader(header http.Header) (interface{}, error) {
 				getJwtHandlerKey))
 		}
 	}
-	return nil, jwt.ErrNoTokenInRequest
+	return nil, req.ErrNoTokenInRequest
 }
 
 // Parse http request, validate, and return a token.

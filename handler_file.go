@@ -12,7 +12,7 @@ type jwtKeyFile struct {
 	Tag  string
 	Ext  bool
 	Kid  string
-	Data []byte
+	Data interface{}
 }
 
 func findJwtKeyFiles(dir string) ([]*jwtKeyFile, int) {
@@ -45,7 +45,12 @@ func parseJwtKeyFile(file string) (*jwtKeyFile, bool) {
 		}
 	} else if strings.HasPrefix(f, TagRSA) {
 		if len(f) > len(TagRSA)+1 {
-			return &jwtKeyFile{Tag: TagRSA, Ext: strings.Contains(ext, "pub"), Kid: f, Data: data}, true
+			if strings.Contains(ext, "pub") {
+				key, _ := jwt.ParseRSAPublicKeyFromPEM(data)
+				return &jwtKeyFile{Tag: TagRSA, Ext: true, Kid: f, Data: key}, true
+			}
+			key, _ := jwt.ParseRSAPrivateKeyFromPEM(data)
+			return &jwtKeyFile{Tag: TagRSA, Ext: false, Kid: f, Data: key}, true
 		}
 	}
 	return nil, false
